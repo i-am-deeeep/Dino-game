@@ -11,10 +11,27 @@ const SPEEDSCALEINCREASE=0.00001
 let lastTime
 let speedScale
 let score
+const p=document.querySelector(".pause")
+let a=0
+p.addEventListener("click",pauseit)
+function pauseit(){
+    if(a==0){
+        a=1
+        p.textContent="Resume"
+    }
+    else{
+        a=0
+        p.textContent="Pause"
+        lastTime=null
+        window.requestAnimationFrame(update)
+    }
+}
+
 setWorldRatio()
 window.addEventListener('resize',setWorldRatio)
 document.addEventListener("keydown",handleStart,{ once:true })
 function handleStart(){
+    p.addEventListener("click",pauseit)
     lastTime=null
     score=0
     startScreenElem.classList.add("hide")
@@ -25,6 +42,9 @@ function handleStart(){
     window.requestAnimationFrame(update)
 }
 function update(time){
+    if(a==1){
+        return
+    }
     if(lastTime==null){
         lastTime=time
         window.requestAnimationFrame(update)
@@ -59,6 +79,7 @@ function isCollision(rect1,rect2){
         rect1.bottom > rect2.top)
 }
 function handleLose(){
+    p.removeEventListener("click",pauseit)
     setDinoLose() 
     setTimeout(() => {
         document.addEventListener("keydown", handleStart, { once: true })
