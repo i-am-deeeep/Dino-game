@@ -13,17 +13,19 @@ let speedScale
 let score
 const p=document.querySelector(".pause")
 let a=0
-p.addEventListener("click",pauseit)
+window.addEventListener('keydown',pauseit)
 function pauseit(){
+    if(KeyboardEvent.code===80) {
     if(a==0){
         a=1
-        p.textContent="Resume"
+        p.textContent="P again to resume"
     }
     else{
         a=0
-        p.textContent="Pause"
+        p.textContent="Press P to pause"
         lastTime=null
         window.requestAnimationFrame(update)
+    }
     }
 }
 
