@@ -13,7 +13,6 @@ let speedScale
 let score
 const p=document.querySelector(".pause")
 let a=0
-p.addEventListener("click",pauseit)
 function pauseit(){
     if(a==0){
         a=1
